@@ -1,5 +1,3 @@
-FROM composer:1 AS composer
-
 FROM php:7.2-alpine
 
 RUN apk add --no-cache --virtual .composer-rundeps git subversion openssh-client mercurial tini bash patch make zip unzip coreutils \
@@ -20,9 +18,9 @@ ENV COMPOSER_HOME /tmp
 
 ENV PATH "/tmp/vendor/bin:$PATH"
 
-COPY --from=composer ["$PHP_INI_DIR/php-cli.ini", "$PHP_INI_DIR/php-cli.ini"]
-COPY --from=composer /usr/bin/composer /usr/bin/composer
-COPY --from=composer /docker-entrypoint.sh /docker-entrypoint.sh
+COPY --from=composer:1 ["$PHP_INI_DIR/php-cli.ini", "$PHP_INI_DIR/php-cli.ini"]
+COPY --from=composer:1 /usr/bin/composer /usr/bin/composer
+COPY --from=composer:1 /docker-entrypoint.sh /docker-entrypoint.sh
 
 RUN composer --ansi --version --no-interaction \
  && find /tmp -type d -exec chmod -v 1777 {} +
