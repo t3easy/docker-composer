@@ -6,6 +6,8 @@ FROM composer:${COMPOSER_VERSION} as composer
 
 FROM php:${PHP_VERSION}-alpine${ALPINE_VERSION}
 
+LABEL org.opencontainers.image.source="https://github.com/t3easy/docker-composer"
+
 RUN set -eux; \
   apk add --no-cache --virtual .composer-rundeps \
     bash \
