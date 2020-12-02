@@ -1,5 +1,0 @@
-version: "3.5"
-services:
-  sut:
-    build: .
-    command: sh -c "php --version --ansi && composer --ansi --version --no-interaction"
