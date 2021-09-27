@@ -15,11 +15,18 @@ jobs:
       contents: read
     strategy:
       matrix:
-        alpine: ["3.12", "3.11", "3.10"]
+        alpine: ["3.14"]
         composer: ["2", "1"]
-        php: ["7.4", "7.3", "7.2"]
+        php: ["7.4", "7.3"]
+        include:
+        - alpine: "3.12"
+          php: "7.2"
+          composer: "2"
+        - alpine: "3.12"
+          php: "7.2"
+          composer: "1"
+          
     env:
-      LATEST_ALPINE: "3.12"
       LATEST_COMPOSER: "2"
       LATEST_PHP: "7.4"
       IMAGE_NAME: t3easy/composer
@@ -47,7 +54,7 @@ jobs:
 
     - name: Build and push latest image
       uses: docker/build-push-action@v2
-      if: ${{ matrix.alpine == env.LATEST_ALPINE && matrix.composer == env.LATEST_COMPOSER && matrix.php == env.LATEST_PHP }}
+      if: ${{ matrix.composer == env.LATEST_COMPOSER && matrix.php == env.LATEST_PHP }}
       with:
         push: true
         platforms: ${{ env.PLATFORMS }}
