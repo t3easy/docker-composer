@@ -65,11 +65,14 @@ jobs:
         tags: |
           ${{ env.IMAGE_NAME }}
           ghcr.io/${{ env.IMAGE_NAME }}
+          ${{ env.IMAGE_NAME }}:${{ matrix.composer }}-php${{ matrix.php }}-alpine${{ matrix.alpine }}
+          ghcr.io/${{ env.IMAGE_NAME }}:${{ matrix.composer }}-php${{ matrix.php }}-alpine${{ matrix.alpine }}
         cache-to: type=local,mode=max,dest=/tmp/.buildx-cache
         cache-from: type=local,src=/tmp/.buildx-cache
 
     - name: Build and push production images
       uses: docker/build-push-action@v2
+      if: ${{ matrix.composer != env.LATEST_COMPOSER || matrix.php != env.LATEST_PHP }}
       with:
         push: true
         platforms: ${{ env.PLATFORMS }}
