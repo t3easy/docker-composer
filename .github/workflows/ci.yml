@@ -19,7 +19,7 @@ jobs:
       contents: read
     strategy:
       matrix:
-        alpine: ["3.15", "3.14"]
+        alpine: ["3.16", "3.15", "3.14"]
         composer: ["2", "1"]
         php: ["8.1", "8.0", "7.4"]
         include:
