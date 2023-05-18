@@ -47,7 +47,7 @@ RUN set -eux; \
 ENV COMPOSER_ALLOW_SUPERUSER 1
 ENV COMPOSER_HOME /tmp
 
-ENV PATH "/tmp/vendor/bin:$PATH"
+ENV PATH "/app/vendor/bin:/tmp/vendor/bin:$PATH"
 
 COPY --from=composer $PHP_INI_DIR/php-cli.ini $PHP_INI_DIR/php-cli.ini
 COPY --from=composer /usr/bin/composer /usr/bin/composer
